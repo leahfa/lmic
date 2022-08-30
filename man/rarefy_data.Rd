@@ -9,7 +9,7 @@ rarefy_data(dat.lis, depth)
 \arguments{
 \item{dat.lis}{perfectly matched list of key and dat (column as ASVs, raw abundance)}
 
-\item{depth}{data wiull be rarieifed to this depth; samples with fewer seqeunes will be 
+\item{depth}{data wiull be rarieifed to this depth; samples with fewer seqeunes will be
 dropped from boith dat and key; thsi will be reported in console}
 }
 \value{

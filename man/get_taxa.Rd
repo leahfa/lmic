@@ -9,16 +9,16 @@ get_taxa(pathToTaxa, pathToGnavus = "None")
 \arguments{
 \item{pathToTaxa}{pathway to taxa table}
 
-\item{pathToDat}{pathway to blast file, if exists}
+\item{pathToGnavus}{pathway to blast file, if exists}
 }
 \value{
-taxa object with full names added in; If a blast file is specified, 
+taxa object with full names added in; If a blast file is specified,
  R. gnavus annotations are corrected
 }
 \description{
 Read in the matching dada taxa table, which has an asvID column matching dat column names;
 Also read in a blast results file for R.gnavus, iif annotation correction is necessary (
  default is "None" ). add to taxa 6 columns corresponding to full phylogenetic lineage, down
-Phyla, order, class, family, genus, and species. Silva database conventin used to specifcy 
+Phyla, order, class, family, genus, and species. Silva database conventin used to specifcy
 taxonmoy ranks (D_1__; D_2__; etc.)
 }

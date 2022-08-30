@@ -7,10 +7,10 @@
 get_data(pathToKey, pathToDat)
 }
 \arguments{
-\item{pathToKey}{pathway to metadata key (sequencing sample identifers in 
+\item{pathToKey}{pathway to metadata key (sequencing sample identifers in
 column "ID", samples in rows)}
 
-\item{pathToDat}{pathway to abundance data ( sequencing sample identifers 
+\item{pathToDat}{pathway to abundance data ( sequencing sample identifers
 in row.names)}
 }
 \value{

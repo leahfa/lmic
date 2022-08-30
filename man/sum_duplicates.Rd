@@ -11,11 +11,11 @@ sum_duplicates(dat.lis, sample.id = "SampleID")
 get_data()}
 }
 \value{
-A list of key, and taht, still perfectly matched, but abundances of multiple 
+A list of key, and taht, still perfectly matched, but abundances of multiple
 runs of same sampel will be summed to one entry
 }
 \description{
-Sum duplicates, if exists (samples which were sequenced in more than one run. They will have 
+Sum duplicates, if exists (samples which were sequenced in more than one run. They will have
 same sample name , but unique sample sequencing
 identifiers (ID column in key))
 }
