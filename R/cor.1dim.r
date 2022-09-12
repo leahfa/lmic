@@ -30,7 +30,7 @@ for (i in 1:ncol(datobj) ) {
 
   Rho[i]=round(cor_res$estimate,3)
   p[i]=round(cor_res$p.value,dr)
-  Taxon[i]=colnames(dat)[i]
+  Taxon[i]=colnames(datobj)[i]
 
 
 
