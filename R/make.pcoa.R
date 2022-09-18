@@ -1,8 +1,8 @@
 #' Draw a PCoA
-#' 
-#' Make a PCoA,map dot color (and optional, shape ) to a metadata factor. If data 
+#'
+#' Make a PCoA,map dot color (and optional, shape ) to a metadata factor. If data
 #' inputted is a a RA/abundance table, it will be converted to distance object using vegdist
-#' 
+#'
 #' @param datobj matrix of RA/abundance data (numeric), or a Distance matrix
 #' @param keyobj correspondin metadata key; sampels must be in same order!
 #' @param kind type of data - `unifrac` (distance matrixes) or `taxtable` (ASVs count as taxtables )
@@ -13,7 +13,7 @@
 #' @param name2 name of var2 (optional)
 #' @param i number of coordinate to plot as X
 #' @param j number of coortdinate to plot as y
-#' @return PCoA plot withn ANOSIM statistics shown 
+#' @return PCoA plot withn ANOSIM statistics shown
 
 
 
@@ -55,7 +55,7 @@ print(paste("anosim", "p=", p1,"| R=", r1))
 
 pl<-ggplot(forplot, aes(x=forplot[ ,i+1],y=forplot[ ,j+1],color=as.factor(var1), shape=as.factor(var2)))+
   #geom_text(size=(3),vjust=-0.5,hjust=-0.5)+
-  geom_point(  size=5)+  
+  geom_point(  size=5)+
   #geom_point(aes(size=t))+
   # scale_color_manual(values=c(pal[1],pal[3],pal[5]),labels=legend.names)+ #,pal[4],pal[8]))+
   #scale_colour_gradientn(colours = brewer.pal(9,"BrBG")[c(8:9,1:3)])
