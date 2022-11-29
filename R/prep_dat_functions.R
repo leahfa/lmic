@@ -86,6 +86,7 @@ get_taxa<-function(pathToTaxa,pathToGnavus="None"){
 sum_duplicates<-function(dat.lis,sample.id="SampleID") {
   keyobj<-dat.lis[[1]]
   datobj<-dat.lis[[2]]
+  keyobj<-keyobj[order(keyobj$ID), ]
   datobj<-subdat(keyobj,datobj,kind="tax.table")
   sampind=which(colnames(keyobj)==sample.id)
   z<-(table(keyobj[ ,sampind]))
@@ -193,6 +194,9 @@ tax.seq.table<-function(dat.lis=rariefied.lis, taxobj, tax.level="genus") {
   }
   if (tax.level=="species") {
     x$taxa<-taxobj$longname.sp[match(temp, taxobj$asvID)]
+  }
+  if (tax.level=="order") {
+    x$taxa<-taxobj$longname.ord[match(temp, taxobj$asvID)]
   }
   xagg<-aggregate(x[ ,-ncol(x)],by=list(x$taxa),FUN=sum)
   colSums(xagg[ ,-1])
