@@ -57,5 +57,8 @@ strip.names.silva.dada<-function(x,t)   {
   new.names<-gsub("-","_",new.names, fixed=TRUE)
   new.names<-gsub("/",".",new.names,fixed=TRUE)
   new.names<-gsub("|",".",new.names,fixed=TRUE)
+  new.names<-gsub(" ","_",new.names,fixed=TRUE)
+  
+  
   return(new.names)
 }
