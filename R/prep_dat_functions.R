@@ -22,8 +22,7 @@ get_data<-function(pathToKey,pathToDat) {
   setdiff(rownames(datobj),keep)
   setdiff(keyobj$ID,keep)
   keyobj<-keyobj[which(keyobj$ID %in% keep),]
-  table(keyobj$Project)
-  datobj<-subdat(keyobj, datobj,"L7")
+  datobj<-subdat(keyobj, datobj)
   list.obj<-list(keyobj,datobj)
   names(list.obj)<-c("key","data.abundance.table")
   return(list.obj)
