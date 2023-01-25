@@ -39,11 +39,12 @@ get_data<-function(pathToKey,pathToDat) {
 
 #' @param pathToTaxa   pathway to taxa table
 #' @param pathToGnavus  pathway to blast file, if exists
+#' @param dbtype database typel default "Silva"; if "UNITE" , formats entries
 #' @return taxa object with full names added in; If a blast file is specified,
 #'  R. gnavus annotations are corrected
 #' @export
 
-get_taxa<-function(pathToTaxa,pathToGnavus="None"){
+get_taxa<-function(pathToTaxa,pathToGnavus="None", dbtype="Silva"){
   taxaobj<-read.csv(pathToTaxa,stringsAsFactors= F,header=T)
   if (pathToGnavus!="None")   {
   bl<-read.table(pathToGnavus,sep="\t",header=FALSE,stringsAsFactors = FALSE)
@@ -53,6 +54,11 @@ get_taxa<-function(pathToTaxa,pathToGnavus="None"){
   print("gnavus successfully assigned to the following ASVs:")
   print(taxaobj$asvID[gna.index])
 
+  }
+  if (dbtype=="UNITE") {
+    temp<-as.data.frame(apply(taxobj[ ,2:8], 2,function(x) sapply(strsplit(x,"__",fixed=TRUE),"[",2)))
+    temp2<-cbind(temp, taxobj[ ,9:10])
+    taxaobj<-temp2
   }
   #taxobj$Species[gna.index]<-"gnavus"
   taxaobj$longname.phy<-paste0("D_0__",taxaobj$Kingdom,";D_1__",taxaobj$Phylum)
