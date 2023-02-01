@@ -56,8 +56,8 @@ get_taxa<-function(pathToTaxa,pathToGnavus="None", dbtype="Silva"){
 
   }
   if (dbtype=="UNITE") {
-    temp<-as.data.frame(apply(taxobj[ ,2:8], 2,function(x) sapply(strsplit(x,"__",fixed=TRUE),"[",2)))
-    temp2<-cbind(temp, taxobj[ ,9:10])
+    temp<-as.data.frame(apply(taxaobj[ ,2:8], 2,function(x) sapply(strsplit(x,"__",fixed=TRUE),"[",2)))
+    temp2<-cbind(temp, taxaobj[ ,9:10])
     taxaobj<-temp2
   }
   #taxobj$Species[gna.index]<-"gnavus"
@@ -209,4 +209,32 @@ tax.seq.table<-function(dat.lis=rariefied.lis, taxobj, tax.level="genus") {
   xagg<-xagg[ ,-1]
   dat<-t(xagg) #dat noew again a dtandard dat object with rax info
   return(dat)
+}
+
+#' Summarize by Taxonomy
+#'
+#'
+#' Summarize ASV table to required phylogenetic level (default is genus)
+#'
+#' @param pathToMeta path to merged metaphlan output (txt)
+#' @param taxlevel required level to output
+#' @return dob.ff numerical matrix of the required phylo level only; samples in rows
+#' @export
+
+prep.metaphlan<-function(pathToMeta,taxlevel="genus") {
+  lev<-c("k__","|p__","|c__","|o__","|f__","|g__","|s__","|t__")
+  dob<-read.table(pathToMeta, sep="\t")
+  colnames(dob)<-dob[1,]
+  dob<-dob[-1,]
+  rownames(dob)<-dob[,1]
+  dob<-dob[ ,-1]
+  z<-substr(taxlevel,1,1)
+  keep<-grep(paste0("|",z,"__"), rownames(dob),fixed=TRUE)
+  dob.f<-dob[c(1,keep),]
+  z1<-grep(z, lev)
+  rm<-lev[(z1+1)]
+  dob.ff<-dob.f[-grep(rm,rownames(dob.f),fixed=TRUE ),]
+  dob.ff<-t(dob.ff)
+  mode(dob.ff)<-"numeric"
+  return(dob.ff)
 }
