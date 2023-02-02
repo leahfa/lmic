@@ -236,5 +236,6 @@ prep.metaphlan<-function(pathToMeta,taxlevel="genus") {
   dob.ff<-dob.f[-grep(rm,rownames(dob.f),fixed=TRUE ),]
   dob.ff<-t(dob.ff)
   mode(dob.ff)<-"numeric"
+  dob.ff<-vegan::decostand(dob.ff,"total")
   return(dob.ff)
 }
