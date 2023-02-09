@@ -4,12 +4,14 @@
 \alias{get_taxa}
 \title{Read In and Format Taxonomy}
 \usage{
-get_taxa(pathToTaxa, pathToGnavus = "None")
+get_taxa(pathToTaxa, pathToGnavus = "None", dbtype = "Silva")
 }
 \arguments{
 \item{pathToTaxa}{pathway to taxa table}
 
 \item{pathToGnavus}{pathway to blast file, if exists}
+
+\item{dbtype}{database typel default "Silva"; if "UNITE" , formats entries}
 }
 \value{
 taxa object with full names added in; If a blast file is specified,

@@ -7,11 +7,17 @@
 write.tax.tables(
   taxobj,
   datobj = rarified.lis[[2]],
+  strip = "no",
+  transpose = "no",
   phylo.levels = c("phylum", "order", "family", "genus", "species"),
   pathToOutdir
 )
 }
 \arguments{
+\item{strip}{strip taxa names to one loevel (default: no, set "yes" to strip)}
+
+\item{transpose}{transpose data (default: no, set "yes" to transpose)}
+
 \item{phylo.levels}{optional; specify phyl levels to write out; by defualt all will be selected}
 
 \item{pathToOutdir}{specify path to directory in which taxonomy tables will be written}

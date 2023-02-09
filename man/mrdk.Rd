@@ -4,12 +4,14 @@
 \alias{mrdk}
 \title{Make Dataframe of Metadata and Microbiome Data}
 \usage{
-mrdk(keyobj, datobj)
+mrdk(keyobj, datobj, id = "ID")
 }
 \arguments{
 \item{keyobj}{a dataframe of metadata; sequencing sample identifiers in collumn "ID"}
 
 \item{datobj}{a matrix of taxa absolute/relative abundances; sequencing sample identifiers are in row.names}
+
+\item{id}{variable in key  to merge on}
 }
 \value{
 a dataframe with seqeunce identifiers in "ID" column

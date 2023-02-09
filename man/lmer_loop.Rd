@@ -11,7 +11,7 @@ lmer_loop(
   transform = "log2",
   fixed.vars,
   vars.to.scale = "none",
-  random.var
+  random.vars
 )
 }
 \arguments{
@@ -19,11 +19,13 @@ lmer_loop(
 
 \item{datobj}{a matrix of taxa absolute/relative abundances; sequencing sample identifiers are in row.names. Rare taxa should be removed.}
 
+\item{transform}{character string describing how to transform the data, default is log2 (alternative is arcsine)}
+
 \item{fixed.vars}{character vector of predictors for model (names of relevant columns in keyobj)}
 
 \item{vars.to.scale}{chracter vector of names of fixed.vars that need to be scales beforemodelling (usually any numerical variable)}
 
-\item{random.var}{variable to be used for random effect}
+\item{random.vars}{variables to be used for random effect}
 }
 \value{
 table of all coefficnts for each microbial feature

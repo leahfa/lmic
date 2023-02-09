@@ -52,7 +52,7 @@ lm_loop<-function(keyobj, datobj, fixed.vars, vars.to.scale="none") {
     temp2$Estimate<-round(temp2$Estimate,3)
     temp2$`Pr(>|t|)`<-round(temp2$`Pr(>|t|)`,5)
     temp2$q2<-round(p.adjust(temp2$`Pr(>|t|)`, "fdr"),5)#Masslin correction - I think this is WRONG!
-
+    temp2<-temp2[order(temp2$q),]
     return(temp2)
 
 

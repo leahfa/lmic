@@ -31,6 +31,6 @@ make.pcoa(datobj, keyobj, kind, dis, var1, var2, name1, name2, i, j, ...)
 PCoA plot withn ANOSIM statistics shown
 }
 \description{
-Make a PCoA,map dot color (and optional, shape ) to a metadata factor. If data 
+Make a PCoA,map dot color (and optional, shape ) to a metadata factor. If data
 inputted is a a RA/abundance table, it will be converted to distance object using vegdist
 }
