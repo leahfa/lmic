@@ -22,6 +22,7 @@ cor.2dim<-function(x.cors,y.cors,dig,cut.level="no") {
   for (i in 1:ncol(x.cors)) {
     p=c()
     r=c()
+    
     for (j in 1:(ncol(y.cors))){
       p[j]=signif(cor.test(x.cors[ ,i],y.cors[ ,j],method="spearman")$p.value,3)
       r[j]=signif(cor.test(x.cors[ ,i],y.cors[ ,j],method="spearman")$estimate,3)

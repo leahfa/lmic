@@ -63,6 +63,8 @@ write.tax.tables<-function(taxobj, datobj=rarified.lis[[2]],
   xagg<-xagg[ ,-1]
   dat<-t(xagg) #dat noew again a dtandard dat object with
   dat<-decostand(dat, "total")
+
+  
   dat<-round(dat,5)
   if (strip=="yes") {
     colnames(dat)<-strip.names.silva.dada(colnames(dat),tl)

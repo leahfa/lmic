@@ -203,6 +203,9 @@ tax.seq.table<-function(dat.lis=rariefied.lis, taxobj, tax.level="genus") {
   if (tax.level=="order") {
     x$taxa<-taxobj$longname.ord[match(temp, taxobj$asvID)]
   }
+  if (tax.level=="family") {
+    x$taxa<-taxobj$longname.fam[match(temp, taxobj$asvID)]
+  }
   xagg<-aggregate(x[ ,-ncol(x)],by=list(x$taxa),FUN=sum)
   colSums(xagg[ ,-1])
   rownames(xagg)<-xagg[ ,1]
