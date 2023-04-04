@@ -8,7 +8,7 @@
 #' @param datobj a matrix of taxa absolute/relative abundances; sequencing sample identifiers are in row.names. Rare taxa should be removed.
 #' @param fixed.vars character vector of predictors for model (names of relevant columns in keyobj)
 #' @param vars.to.scale chracter vector of names of fixed.vars that need to be scales beforemodelling (usually any numerical variable)
-#'
+#' @param col.merge column to merge on , default is "ID
 #' @return table of all coefficnts for each microbial feature
 #'
 #'
@@ -16,12 +16,16 @@
 
 #Still nder construction - investigatig corerct p-value adjustment;  for now go with q, NOT q2
 
-lm_loop<-function(keyobj, datobj, fixed.vars, vars.to.scale="none") {
-   datt<-td(datobj,transform.method = "log2")
+lm_loop<-function(keyobj, datobj, fixed.vars, vars.to.scale="none",col.merge="ID", transform="log2") {
+  if (transform=="log2") {
+  datt<-td(datobj,transform.method = "log2")
+  } else {
+    datt<-datobj
+  }
    if (vars.to.scale[1]!="none") {
        keyobj[ ,vars.to.scale]<-scale(keyobj[ ,vars.to.scale])
    }
-  dfa<-merge(keyobj, datt, by.x="ID",by.y="row.names")
+  dfa<-merge(keyobj, datt, by.x=col.merge,by.y="row.names")
 
   tax.names<-colnames(datt)
   res<-list()
