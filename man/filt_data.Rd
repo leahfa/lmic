@@ -9,7 +9,7 @@ filt_data(dat.lis, x, tmax)
 \arguments{
 \item{dat.lis}{perfectly matched list of key and dat (column as ASVs, raw abundance)}
 
-\item{x}{prevalence threshold;features whsoe prevalence is equal or smaller than x
+\item{x}{prevalence threshold;features whose prevalence is equal or smaller than x
 will be dropped}
 
 \item{tmax}{minimal RA/abundance threshold; features whose maximal RA/abundance is lower

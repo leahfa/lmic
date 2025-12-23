@@ -17,11 +17,12 @@
 
 filtColsTmax<-function(datobj,x,tmax ){
   datobj.b=ifelse(datobj>0,1,0)
-  keep=which(colSums(datobj.b)>=x)
+  keep=which(colSums(datobj.b,na.rm=TRUE)>=x)
   datobj.s<-datobj[ ,keep, drop=FALSE]
-  max.ra<-apply(datobj.s,2,max)
+  max.ra<-apply(datobj.s,2,max,na.rm=TRUE)
   keep2<-which(max.ra>tmax)
   datobj.f<-datobj.s[ , keep2, drop=FALSE]
  
   return(datobj.f)
 }
+

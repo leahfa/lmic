@@ -128,7 +128,7 @@ sum_duplicates<-function(dat.lis,sample.id="SampleID") {
 #' Remove rare ASvs based on prevalence and minimal abundance
 #'
 #' @param dat.lis perfectly matched list of key and dat (column as ASVs, raw abundance)
-#' @param x prevalence threshold;features whsoe prevalence is equal or smaller than x
+#' @param x prevalence threshold;features whose prevalence is equal or smaller than x
 #' will be dropped
 #' @param tmax minimal RA/abundance threshold; features whose maximal RA/abundance is lower
 #' than this are dropped (i.e., must pass this threshold in at least ONE sample to be

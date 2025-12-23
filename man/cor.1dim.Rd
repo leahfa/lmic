@@ -4,7 +4,7 @@
 \alias{cor.1dim}
 \title{Make  a one-dimensional correlation table}
 \usage{
-cor.1dim(datobj, yfv, dr, method = "spearman", ...)
+cor.1dim(datobj, yfv, dr, use = "complete", method = "spearman", ...)
 }
 \arguments{
 \item{datobj}{a matrix/dataframe of numerical data, usually taxa RAs}

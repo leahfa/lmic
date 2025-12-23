@@ -5,7 +5,7 @@
 #'
 #' @param keyobj a dataframe of metadata; sequencing sample identifiers in collumn "ID"
 #' @param datobj a matrix of taxa absolute/relative abundances; sequencing sample identifiers are in row.names. Rare taxa should be removed.
-#' @param transform character string describing how to transform the data, default is log2 (alternative is arcsine)
+#' @param transform character string describing how to transform the data, default is log2 (alternatives are none, arcsine)
 #' @param fixed.vars character vector of predictors for model (names of relevant columns in keyobj)
 #' @param vars.to.scale chracter vector of names of fixed.vars that need to be scales beforemodelling (usually any numerical variable)
 #' @param random.vars variables to be used for random effect
@@ -21,11 +21,14 @@
 
 
 
-lmer_loop<-function(keyobj, datobj,transform="log2", fixed.vars, vars.to.scale="none",
+lmer_loop<-function(keyobj, datobj,transform="log", fixed.vars, vars.to.scale="none",
                     random.vars) {
-   if (transform=="log2") {
-   datt<-td(datobj,transform.method = "log2")
+   if (transform=="log") {
+   datt<-td(datobj,transform.method = "log")
    } 
+  if (transform=="log2") {
+    datt<-td(datobj,transform.method = "log2")
+  } 
   if (transform=="arcsine") {
     datt<-td(datobj,transform.method = "arcsine")
   } 
@@ -35,6 +38,7 @@ lmer_loop<-function(keyobj, datobj,transform="log2", fixed.vars, vars.to.scale="
    if (vars.to.scale[1]!="none") {
        keyobj[ ,vars.to.scale]<-scale(keyobj[ ,vars.to.scale])
    }
+  colnames(datt)<-make.names(colnames(datt))
   dfa<-merge(keyobj, datt, by.x="ID",by.y="row.names")
 
   tax.names<-colnames(datt)
@@ -58,7 +62,7 @@ lmer_loop<-function(keyobj, datobj,transform="log2", fixed.vars, vars.to.scale="
     for ( j in 1:length(fixed.vars)) {
    x1<-temp1[grep(fixed.vars[j],temp1$coefficient),]
   # hist(x1$`Pr(>|t|)`)
-   x1$q<-round(p.adjust(x1$`Pr(>|t|)`,"fdr"),5)
+   x1$q<-round(p.adjust(x1$`Pr(>|t|)`,"fdr"),8)
 
    res2[[j]]<-x1
 

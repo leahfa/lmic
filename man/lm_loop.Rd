@@ -4,7 +4,14 @@
 \alias{lm_loop}
 \title{Build linear model per feature}
 \usage{
-lm_loop(keyobj, datobj, fixed.vars, vars.to.scale = "none")
+lm_loop(
+  keyobj,
+  datobj,
+  fixed.vars,
+  vars.to.scale = "none",
+  col.merge = "ID",
+  transform = "log2"
+)
 }
 \arguments{
 \item{keyobj}{a dataframe of metadata; sequencing sample identifiers in collumn "ID"}
@@ -14,6 +21,8 @@ lm_loop(keyobj, datobj, fixed.vars, vars.to.scale = "none")
 \item{fixed.vars}{character vector of predictors for model (names of relevant columns in keyobj)}
 
 \item{vars.to.scale}{chracter vector of names of fixed.vars that need to be scales beforemodelling (usually any numerical variable)}
+
+\item{col.merge}{column to merge on , default is "ID}
 }
 \value{
 table of all coefficnts for each microbial feature

@@ -4,7 +4,7 @@
 #' taxa incraesed in IBD/sum RAs of taxa decraesed in IBD); from Gevers 2014
 #' Bit note R. gnavus moved to "bad side" (nominator)
 #'
-#'
+#'fixed dec23 2025-misspelld taxa names, use family instaed of order level for the veillonellas
 #'
 #' @param datobj a matrix of taxa relative abundances; sequencing sample identifiers are in row.names.
 #' @param depth rarefaction depth (uniform sample depth)
@@ -25,8 +25,8 @@ calculate.mdi.adj<-function(dat,depth) {
 
 
 b=c("Enterobacterales", "Pasteurellaceae", "Neisseriaceae", "Gemellaceae",
-    "Fusobacteriaceae","Veillonellales-Selenomonadales")
-g=c("Erysiopelotrichaceae","Bifidobacteriaceae","Bacteriodales","Clostridia")
+    "Fusobacteriaceae","Veillonellaceae")
+g=c("Erysipelotrichaceae","Bifidobacteriaceae","Bacteroidales","Clostridia")
 mdi=c()
 contras=c("gnavus","torques")
 for ( i in 1:nrow(dat)) {

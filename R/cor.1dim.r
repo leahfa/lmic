@@ -15,7 +15,7 @@
 #' @export
 
 
-cor.1dim<-function(datobj,yfv,dr,method="spearman",...) {
+cor.1dim<-function(datobj,yfv,dr,use="complete",method="spearman",...) {
 
 Rho=c()
 p=c()

@@ -19,3 +19,6 @@ Calculate Microbial Dysbiosis Index (log ratio of sum RAs of
 taxa incraesed in IBD/sum RAs of taxa decraesed in IBD); from Gevers 2014
 Bit note R. gnavus moved to "bad side" (nominator)
 }
+\details{
+fixed dec23 2025-misspelld taxa names, use family instaed of order level for the veillonellas
+}

@@ -23,8 +23,8 @@ calculate.adi.adj<-function(dat,depth) {
 
 
   g=c("Clostridia","Bifidobacteriales","Coriobacteriales","Bacteroidales","Turicibacter", "Erysipelatoclostridium",
-      "Solobacterium","Selenomonadales","Fusobacteriales","Desulfovibrionaceae","Akkermansia","Parasutterella","Sutterella")
-  b<-c("Lactobacillales","Bacillales","Corynebacteriales","Micrococcales","Coprobacillus","Aeromonadales","Enterobacteriales","Acinetobacter","Neisseriaceae")
+      "Solobacterium","Selenomonadales","Fusobacteriales","Desulfovibrionaceae","Akkermansia","Parasutterella","Sutterella","Archaea")
+  b<-c("Lactobacillales","Bacillales","Corynebacteriales","Micrococcales","Coprobacillus","Aeromonadales","Enterobacterales","Acinetobacter","Neisseriaceae")
 
  adi=c()
 

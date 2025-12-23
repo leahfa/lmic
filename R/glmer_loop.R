@@ -1,14 +1,15 @@
-#' Build linear model per feature
-#' 
-#' Run linear model for each microbial taxon (like masslin but better)
+#' Run mixed linear model with random effect
+#' for each microbial taxon (like masslin but better)
 #'
 #'
 #'
 #' @param keyobj a dataframe of metadata; sequencing sample identifiers in collumn "ID"
 #' @param datobj a matrix of taxa absolute/relative abundances; sequencing sample identifiers are in row.names. Rare taxa should be removed.
+#' @param transform character string describing how to transform the data, default is log2 (alternatives are none, arcsine)
 #' @param fixed.vars character vector of predictors for model (names of relevant columns in keyobj)
 #' @param vars.to.scale chracter vector of names of fixed.vars that need to be scales beforemodelling (usually any numerical variable)
-#' @param col.merge column to merge on , default is "ID
+#' @param random.vars variables to be used for random effect
+#'
 #' @return table of all coefficnts for each microbial feature
 #'
 #'
@@ -16,26 +17,37 @@
 
 #Still nder construction - investigatig corerct p-value adjustment;  for now go with q, NOT q2
 
-lm_loop<-function(keyobj, datobj, fixed.vars, vars.to.scale="none",col.merge="ID", transform="log2") {
- 
-  if (transform=="log2") {
-  datt<-td(datobj,transform.method = "log2")
-  } else {
+
+
+
+
+glmer_loop<-function(keyobj, datobj,transform="log2", fixed.vars, vars.to.scale="none",
+                    random.vars) {
+   if (transform=="log2") {
+   datt<-td(datobj,transform.method = "log2")
+   } 
+  if (transform=="arcsine") {
+    datt<-td(datobj,transform.method = "arcsine")
+  } 
+  if (transform=="none") {
     datt<-datobj
-  }
+  } 
    if (vars.to.scale[1]!="none") {
        keyobj[ ,vars.to.scale]<-scale(keyobj[ ,vars.to.scale])
    }
-  dfa<-merge(keyobj, datt, by.x=col.merge,by.y="row.names")
+  colnames(datt)<-make.names(colnames(datt))
+  dfa<-merge(keyobj, datt, by.x="ID",by.y="row.names")
 
   tax.names<-colnames(datt)
   res<-list()
   for (i in 1:length(tax.names)){
-    message(paste("Running model for:",tax.names[i], "iteration", i))
-    # create teh function for lm:
-      form<-paste(tax.names[i],paste(fixed.vars, collapse = " + "),sep="~")
 
-      summary(lm(form, data=dfa))->m
+    # create teh function for lm:
+    
+    rand<-paste0("(1|",random.vars,")")
+      form<-paste(tax.names[i],paste(c(fixed.vars,rand), collapse = " + "),sep="~")
+    
+      summary(glmer(form, data=dfa,family="binomial"))->m
       temp<-as.data.frame(m$coefficients)
       temp$Taxon<-tax.names[i]
       temp$coefficient<-rownames(temp)
@@ -55,9 +67,9 @@ lm_loop<-function(keyobj, datobj, fixed.vars, vars.to.scale="none",col.merge="ID
 
     temp2<-do.call("rbind", res2)
     temp2$Estimate<-round(temp2$Estimate,3)
-    temp2$`Pr(>|t|)`<-round(temp2$`Pr(>|t|)`,5)
     temp2$q2<-round(p.adjust(temp2$`Pr(>|t|)`, "fdr"),5)#Masslin correction - I think this is WRONG!
     temp2<-temp2[order(temp2$q),]
+    rownames(temp2)<-NULL
     return(temp2)
 
 
