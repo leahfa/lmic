@@ -20,8 +20,8 @@ subdat<-function(keyobj,datobj,kind="tax.table") {
   #keep<-intersect(rownames(dat),key.s$ID) #functon only returns one object
   #key.s<-key.s[which(key.s$ID %in% keep),] #so if changing key as well as datobj, need to retirn both objects as lists
   keep<-intersect(rownames(datobj),keyobj$ID)
-  print(paste("number of samples (including reruns and replicates) in both key and dat:", length(keep)))
-  if (length(keep)<nrow(keyobj)) {print("Attention  - key has samples missing from dat")}
+  message(paste("number of samples (including reruns and replicates) in both key and dat:", length(keep)))
+  if (length(keep)<nrow(keyobj)) {message("Attention  - key has samples missing from dat")}
   keyobj<-keyobj[which(keyobj$ID %in% keep),]
   if (kind=="unifrac") {
 
