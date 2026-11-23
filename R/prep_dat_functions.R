@@ -178,59 +178,7 @@ rarefy_data<-function(dat.lis,depth) {
 }
 
 
-#' Summarize by Taxonomy
-#'
-#'
-#' Summarize ASV table to required phylogenetic level (default is genus)
-#'
-#' @param dat.lis perfectly matched list of key and dat; by default after filtartion and rarefaction
-#' @param taxobj taxa table  prepared with get_taxa()
-#' @param tax.level taxonomic level required; default is genus
-#' @return dat.lis with teh dat object summarized to phylogebtic rtank of interest
-#' @export
 
-
-tax.seq.table<-function(dat.lis=rariefied.lis, taxobj, tax.level="genus", shorten.names="no") {
-  datobj<-dat.lis[[2]]
-  x<-as.data.frame(t(datobj),stringsAsFactors=F)
-  temp<-rownames(x)
-  if (tax.level=="genus") {
-  x$taxa<-taxobj$longname.gen[match(temp, taxobj$asvID)]
-  lev=5
-  }
-  if (tax.level=="species") {
-    x$taxa<-taxobj$longname.sp[match(temp, taxobj$asvID)]
-    lev=6
-  }
-  if (tax.level=="order") {
-    x$taxa<-taxobj$longname.ord[match(temp, taxobj$asvID)]
-    lev=3
-  }
-  if (tax.level=="family") {
-    x$taxa<-taxobj$longname.fam[match(temp, taxobj$asvID)]
-    lev=4
-  }
-  if (tax.level=="class") {
-    x$taxa<-taxobj$longname.cla[match(temp, taxobj$asvID)]
-    lev=2
-  }
-  if (tax.level=="phylum") {
-    x$taxa<-taxobj$longname.phy[match(temp, taxobj$asvID)]
-    lev=1
-  }
-  xagg<-aggregate(x[ ,-ncol(x)],by=list(x$taxa),FUN=sum)
-  colSums(xagg[ ,-1])
-  rownames(xagg)<-xagg[ ,1]
-  xagg<-xagg[ ,-1]
-  dat<-t(xagg) #dat noew again a dtandard dat object with rax info
-  if (shorten.names=="yes") {
-    colnames(dat)=strip.names.silva.dada(colnames(dat),lev)
-  }
-
-
-  return(dat)
-}
-##### new ver
 #' Summarize ASV table to a required taxonomic level
 #'
 #' Aggregates ASV counts to the specified taxonomic rank (default: genus).
