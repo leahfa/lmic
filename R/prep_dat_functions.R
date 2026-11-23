@@ -190,29 +190,124 @@ rarefy_data<-function(dat.lis,depth) {
 #' @export
 
 
-tax.seq.table<-function(dat.lis=rariefied.lis, taxobj, tax.level="genus") {
+tax.seq.table<-function(dat.lis=rariefied.lis, taxobj, tax.level="genus", shorten.names="no") {
   datobj<-dat.lis[[2]]
   x<-as.data.frame(t(datobj),stringsAsFactors=F)
   temp<-rownames(x)
   if (tax.level=="genus") {
   x$taxa<-taxobj$longname.gen[match(temp, taxobj$asvID)]
+  lev=5
   }
   if (tax.level=="species") {
     x$taxa<-taxobj$longname.sp[match(temp, taxobj$asvID)]
+    lev=6
   }
   if (tax.level=="order") {
     x$taxa<-taxobj$longname.ord[match(temp, taxobj$asvID)]
+    lev=3
   }
   if (tax.level=="family") {
     x$taxa<-taxobj$longname.fam[match(temp, taxobj$asvID)]
+    lev=4
+  }
+  if (tax.level=="class") {
+    x$taxa<-taxobj$longname.cla[match(temp, taxobj$asvID)]
+    lev=2
+  }
+  if (tax.level=="phylum") {
+    x$taxa<-taxobj$longname.phy[match(temp, taxobj$asvID)]
+    lev=1
   }
   xagg<-aggregate(x[ ,-ncol(x)],by=list(x$taxa),FUN=sum)
   colSums(xagg[ ,-1])
   rownames(xagg)<-xagg[ ,1]
   xagg<-xagg[ ,-1]
   dat<-t(xagg) #dat noew again a dtandard dat object with rax info
+  if (shorten.names=="yes") {
+    colnames(dat)=strip.names.silva.dada(colnames(dat),lev)
+  }
+
+
   return(dat)
 }
+##### new ver
+#' Summarize ASV table to a required taxonomic level
+#'
+#' Aggregates ASV counts to the specified taxonomic rank (default: genus).
+#' Accepts either a list containing key and dat, or a count matrix/data frame
+#' directly. Rows of the count table must represent samples and columns ASVs.
+#'
+#' @param dataInput Either a list containing key and dat (with dat as the second
+#'   element), or an ASV count matrix/data frame.
+#'   Default is rariefied.lis.
+#' @param taxobj Taxonomy table prepared with get_taxa().
+#'   Must contain asvID and the relevant longname.* columns.
+#' @param tax.level Taxonomic rank to aggregate to. One of:
+#'   "phylum", "class", "order", "family", "genus", "species".
+#'   Default is "genus".
+#' @param shorten.names Whether to shorten taxon names using
+#'   strip.names.silva.dada(). Either "yes" or "no" (default).
+#'
+#' @return A matrix with samples as rows, taxa as columns, and summed
+#'   ASV counts as values.
+#' @export
+
+tax.seq.table <- function(dataInput = rariefied.lis,
+                          taxobj,
+                          tax.level = "genus",
+                          shorten.names = "no") {
+
+  # Extract dat from list, or use matrix/data frame directly
+  if (is.list(dataInput) && !is.data.frame(dataInput)) {
+    datobj <- dataInput[[2]]
+  } else if (is.matrix(dataInput) || is.data.frame(dataInput)) {
+    datobj <- dataInput
+  } else {
+    stop("dataInput must be a list, matrix, or data frame.")
+  }
+
+  x <- as.data.frame(t(datobj), stringsAsFactors = FALSE)
+  temp <- rownames(x)
+
+  if (tax.level == "genus") {
+    x$taxa <- taxobj$longname.gen[match(temp, taxobj$asvID)]
+    lev <- 5
+  }
+  if (tax.level == "species") {
+    x$taxa <- taxobj$longname.sp[match(temp, taxobj$asvID)]
+    lev <- 6
+  }
+  if (tax.level == "order") {
+    x$taxa <- taxobj$longname.ord[match(temp, taxobj$asvID)]
+    lev <- 3
+  }
+  if (tax.level == "family") {
+    x$taxa <- taxobj$longname.fam[match(temp, taxobj$asvID)]
+    lev <- 4
+  }
+  if (tax.level == "class") {
+    x$taxa <- taxobj$longname.cla[match(temp, taxobj$asvID)]
+    lev <- 2
+  }
+  if (tax.level == "phylum") {
+    x$taxa <- taxobj$longname.phy[match(temp, taxobj$asvID)]
+    lev <- 1
+  }
+
+  xagg <- aggregate(x[, -ncol(x)], by = list(x$taxa), FUN = sum)
+
+  rownames(xagg) <- xagg[, 1]
+  xagg <- xagg[, -1]
+
+  dat <- t(xagg)
+
+  if (shorten.names == "yes") {
+    colnames(dat) <- strip.names.silva.dada(colnames(dat), lev)
+  }
+
+  return(dat)
+}
+#######################
 
 #' Summarize by Taxonomy
 #'
